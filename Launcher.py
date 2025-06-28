@@ -2,7 +2,7 @@ import webview
 import threading
 import time
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 def switch_to_main():
     time.sleep(7)
