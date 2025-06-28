@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            overflow: hidden;
+            background-color: #292929;
+        }
+        .editor-container {
+            display: flex;
+            flex-direction: row;
+            width: 745px;
+            height: 365px;
+        }
+        #Content_written {
+            flex: 1;
+            width: 95%;
+            height: 365px;
+            padding: 10px;
+            background-color: hsl(0, 0%, 23%);
+            color: white;
+            font-family: Consolas, "Courier New", "Lucida Console", monospace;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-radius: 0px 5px 5px 5px;
+        }
+        #Content_written:focus {
+            outline: none;
+        }
+        #line-numbers {
+            width: 45px;
+            height: 365px;
+            padding: 10px 0;
+            background-color: hsl(0, 0%, 23%);
+            color: #888;
+            text-align: left;
+            font-family: Consolas, "Courier New", "Lucida Console", monospace;
+            pointer-events: none;
+            user-select: none;
+        }
+        button {
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: none;
+            background-color: hsl(0, 0%, 23%);
+            color: white;
+            font-family: Consolas, "Courier New", "Lucida Console", monospace;
+        }
+        button:hover {
+            font-weight: bolder;
+            text-decoration: underline;
+        }
+        input[type="text"] {
+            height: 25px;
+            border: none;
+            border-radius: 10px, 10px, 0px, 0px;
+            background-color: rgba(255, 255, 255, 0);
+            color: white;
+            font-family: Consolas, "Courier New", "Lucida Console", monospace;
+        }
+        input[type="text"]:focus {
+            outline: none;
+        }
+        #about-modal {
+            font-family: consolas, "Courier New", "Lucida Console", monospace;
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        #about-modal .modal-content {
+            background: #222;
+            color: #fff;
+            padding: 32px 24px;
+            border-radius: 8px;
+            min-width: 300px;
+            max-width: 90vw;
+            position: relative;
+            box-shadow: 0 4px 32px #000a;
+        }
+        #about-modal button.close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        #about-modal h2 {
+            margin-top: 0;
+        }
+        #about-modal a {
+            color: #4af;
+        }
+        #help-modal {
+            font-family: consolas, "Courier New", "Lucida Console", monospace;
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        #help-modal .modal-content {
+            background: #222;
+            color: #fff;
+            padding: 32px 24px;
+            border-radius: 8px;
+            min-width: 300px;
+            max-width: 90vw;
+            position: relative;
+            box-shadow: 0 4px 32px #000a;
+        }
+        #help-modal button.close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        #help-modal h2 {
+            margin-top: 0;
+        }
+        #help-modal a {
+            color: #4af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input style="width: 250px;" type="text" id="SaveFileName" placeholder="Enter project name (e.g., main.py)"/><br>
+        <button onclick="Clear()">New <ion-icon name="document"></ion-icon></button>
+        <button onclick="SaveFile()">Save <ion-icon name="save"></ion-icon></button>
+        <button onclick="showAbout()">About <ion-icon name="help-circle"></ion-icon></button>
+        <button onclick="showHelp()">Help <ion-icon name="information-circle"></ion-icon></button>
+        <button onclick="window.open('https://github.com/syntaxMORG0/Open-IDE', '_blank')">
+            Github <ion-icon name="logo-github"></ion-icon>
+        </button>
+        <br>
+        <div class="editor-container">
+            <div id="line-numbers"></div>
+            <div id="Content_written" contenteditable="true" spellcheck="false">
+                #click on "New <ion-icon name="document"></ion-icon>" to clear the query<br><br>
+                #Modify it how you like it!<br>
+                print("this is an open source IDE")
+            </div>
+        </div>
+    </div>
+    <div id="about-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#222; color:#fff; padding:32px 24px; border-radius:8px; min-width:300px; max-width:90vw; position:relative; box-shadow:0 4px 32px #000a;">
+            <button onclick="closeAbout()" style="position:absolute; top:8px; right:12px; background:none; border:none; color:#fff; font-size:1.5em; cursor:pointer;">&times;</button>
+            <h2>About Open IDE</h2>
+            <p>This is an open source IDE made by syntaxMORG0. 😄 What's up :D<br>
+            <a href="https://github.com/syntaxMORG0/Open-IDE" target="_blank" style="color:#4af;">GitHub Repo</a>
+            </p>
+        </div>
+    </div>
+    <div id="help-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#222; color:#fff; padding:32px 24px; border-radius:8px; min-width:300px; max-width:90vw; position:relative; box-shadow:0 4px 32px #000a;">
+            <button onclick="closeHelp()" style="position:absolute; top:8px; right:12px; background:none; border:none; color:#fff; font-size:1.5em; cursor:pointer;">&times;</button>
+            <h2>Help</h2>
+            <p>
+                For documentation and support, please visit the
+                <a href="https://github.com/syntaxMORG0/Open-IDE" target="_blank" style="color:#4af;">documentation</a>.
+            </p>
+        </div>
+    </div>
+    <script>
+        function updateTitle() {
+            const filename = document.getElementById("SaveFileName").value.trim();
+            document.title = filename ? filename : "New Project";
+            if (window.pywebview && window.pywebview.api && window.pywebview.api.set_title) {
+                window.pywebview.api.set_title(document.title);
+            }
+        }
+        document.getElementById("SaveFileName").addEventListener("input", updateTitle);
+        updateTitle();
+        function Clear() {
+            if (confirm("Are you sure you want to clear the query?")) {
+                document.getElementById("Content_written").innerHTML = "";
+            }
+        }
+        function SaveFile() {
+            const content = document.getElementById("Content_written").innerText;
+            const filename = document.getElementById("SaveFileName").value.trim();
+            if (!filename) {
+                alert("No file name selected!");
+                return;
+            }
+            if (!confirm("Are you sure you want to save the file as '" + filename + "'?")) {
+                return;
+            }
+            const blob = new Blob([content], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        }
+        function updateLineNumbers() {
+            const content = document.getElementById("Content_written").innerText || "";
+            const lines = content.split('\n').length;
+            let numbers = "";
+            for (let i = 1; i <= lines; i++) {
+                numbers += i + "<br>";
+            }
+            document.getElementById("line-numbers").innerHTML = numbers;
+        }
+        document.getElementById("Content_written").addEventListener("input", updateLineNumbers);
+        document.getElementById("Content_written").addEventListener("scroll", function() {
+            document.getElementById("line-numbers").scrollTop = this.scrollTop;
+        });
+        updateLineNumbers();
+        document.getElementById("Content_written").addEventListener("keydown", function(e) {
+            const pairs = {
+                '(': ')',
+                '[': ']',
+                '{': '}',
+                '"': '"',
+                "'": "'"
+            };
+            if (pairs[e.key] && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                e.preventDefault();
+                const sel = window.getSelection();
+                const range = sel.getRangeAt(0);
+                const closing = pairs[e.key];
+                const openNode = document.createTextNode(e.key);
+                const closeNode = document.createTextNode(closing);
+                range.insertNode(closeNode);
+                range.insertNode(openNode);
+                range.setStartAfter(openNode);
+                range.setEndAfter(openNode);
+                sel.removeAllRanges();
+                sel.addRange(range);
+                updateLineNumbers();
+                return;
+            }
+            if (e.key === "Tab") {
+                e.preventDefault();
+                const tab = "    ";
+                const sel = window.getSelection();
+                const range = sel.getRangeAt(0);
+                const tabNode = document.createTextNode(tab);
+                range.insertNode(tabNode);
+                range.setStartAfter(tabNode);
+                range.setEndAfter(tabNode);
+                sel.removeAllRanges();
+                sel.addRange(range);
+                updateLineNumbers();
+            }
+        });
+        function showAbout() {
+            document.getElementById("about-modal").style.display = "flex";
+        }
+        function closeAbout() {
+            document.getElementById("about-modal").style.display = "none";
+        }
+        function showHelp() {
+            document.getElementById("help-modal").style.display = "flex";
+        }
+        function closeHelp() {
+            document.getElementById("help-modal").style.display = "none";
+        }
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
