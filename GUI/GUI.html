@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <style>
         body {
             overflow: hidden;
@@ -143,30 +142,36 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <input style="width: 250px;" type="text" id="SaveFileName" placeholder="Enter project name (e.g., main.py)"/><br>
-        <button onclick="Clear()">New <ion-icon name="document"></ion-icon></button>
-        <button onclick="SaveFile()">Save <ion-icon name="save"></ion-icon></button>
-        <button onclick="showAbout()">About <ion-icon name="help-circle"></ion-icon></button>
-        <button onclick="showHelp()">Help <ion-icon name="information-circle"></ion-icon></button>
-        <button onclick="window.open('https://github.com/syntaxMORG0/Open-IDE', '_blank')">
-            Github <ion-icon name="logo-github"></ion-icon>
-        </button>
-        <br>
-        <div class="editor-container">
-            <div id="line-numbers"></div>
-            <div id="Content_written" contenteditable="true" spellcheck="false">
-                #click on "New <ion-icon name="document"></ion-icon>" to clear the query<br><br>
-                #Modify it how you like it!<br>
-                print("this is an open source IDE")
+    <div class="container" style="display: flex; align-items: flex-start; justify-content: space-between;">
+        <div>
+            <input style="width: 250px;" type="text" id="SaveFileName" placeholder="Enter project name (e.g., main.py)"/><br>
+            <button onclick="Clear()">New <ion-icon name="document"></ion-icon></button>
+            <button onclick="SaveFile()">Save <ion-icon name="save"></ion-icon></button>
+            <button onclick="showAbout()">About <ion-icon name="help-circle"></ion-icon></button>
+            <button onclick="showHelp()">Help <ion-icon name="information-circle"></ion-icon></button>
+            <button onclick="window.open('https://github.com/syntaxMORG0/Open-IDE', '_blank')">
+                Github <ion-icon name="logo-github"></ion-icon>
+            </button>
+            <br>
+            <div class="editor-container">
+                <div id="line-numbers"></div>
+                <div id="Content_written" contenteditable="true" spellcheck="false">
+                    #click on "New" to clear the query<br><br>
+                    #Modify it how you like it!<br>
+                    print("this is an open source IDE")
+                </div>
             </div>
         </div>
+        <!-- Top-right logo -->
+        <img src="assets/ICO.ico" alt="Open IDE Logo"
+            style="position: absolute; top: 12px; right: 18px; height: 40px; z-index: 2000; pointer-events: none;">
+        </img>
     </div>
     <div id="about-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center;">
         <div style="background:#222; color:#fff; padding:32px 24px; border-radius:8px; min-width:300px; max-width:90vw; position:relative; box-shadow:0 4px 32px #000a;">
             <button onclick="closeAbout()" style="position:absolute; top:8px; right:12px; background:none; border:none; color:#fff; font-size:1.5em; cursor:pointer;">&times;</button>
-            <h2>About Open IDE</h2>
-            <p>This is an open source IDE made by syntaxMORG0. 😄 What's up :D<br>
+            <h2>About Open IDE, 😄 What's up :D</h2>
+            <p>This is an open source IDE made by syntaxMORG0. <br>
             <a href="https://github.com/syntaxMORG0/Open-IDE" target="_blank" style="color:#4af;">GitHub Repo</a>
             </p>
         </div>
@@ -198,7 +203,7 @@
         }
         function SaveFile() {
             const content = document.getElementById("Content_written").innerText;
-            const filename = document.getElementById("SaveFileName").value.trim();
+            const filename = document.getElementById("SaveFileName").value.trim() || "Newfile.txt";
             if (!filename) {
                 alert("No file name selected!");
                 return;
@@ -206,11 +211,9 @@
             if (!confirm("Are you sure you want to save the file as '" + filename + "'?")) {
                 return;
             }
-            const blob = new Blob([content], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.click();
+            // Encode content and filename for URL
+            const url = `Download_Portal.html?filename=${encodeURIComponent(filename)}&content=${encodeURIComponent(content)}`;
+            window.open(url, '_blank');
         }
         function updateLineNumbers() {
             const content = document.getElementById("Content_written").innerText || "";

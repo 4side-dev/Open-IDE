@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/ICO.ico" type="image/x-icon">
+    <title>Open IDE Download-Portal</title>
+    <style>
+        body {
+            font-family: consolas, monospace;
+            background-image: url('assets/background.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #000000;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <br><br><br><br><br><br><br>
+    <div class="container">
+        <img src="assets/icon.png" style="width: 100px; height: auto; margin-bottom: 20px;">
+        <h1>Open IDE file export portal</h1>
+        <p>If your download did not start, <a id="manual" href="#">click here</a>.</p>
+    </div>
+    <script>
+        // Helper to get query parameters
+        function getQueryParam(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
+        }
+
+        const filename = getQueryParam('filename') || 'download.txt';
+        const content = getQueryParam('content') || '';
+
+        function triggerDownload() {
+            if (content) {
+                const blob = new Blob([content], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                document.body.innerHTML += "<p>No file data found.</p>";
+            }
+        }
+
+        // Auto-trigger download on page load
+        triggerDownload();
+
+        // Manual download fallback
+        document.getElementById('manual').onclick = function(e) {
+            e.preventDefault();
+            triggerDownload();
+        };
+    </script>
+</body>
+</html>
