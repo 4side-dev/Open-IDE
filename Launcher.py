@@ -1,11 +1,12 @@
 import webview
 import threading
 import time
+import random
 
 DEBUG_MODE = False
 
 def switch_to_main():
-    time.sleep(7)
+    time.sleep(random.randint(7, 10))
     for w in webview.windows:
         if w.title == 'Open IDE':
             w.destroy()
