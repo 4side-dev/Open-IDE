@@ -16,7 +16,7 @@
             font-family: consolas, 'Courier New', 'Lucida Console', monospace;
             line-height: 1.6;
             margin: 20px;
-            background-image: url("assets/Splash.jpg");
+            background-image: url("assets/background.jpg");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -24,20 +24,33 @@
             overflow: hidden;
             min-height: 100vh;
             min-width: 100vw;
+            user-select: none;           /* Standard */
+            -webkit-user-select: none;   /* Chrome/Safari */
+            -moz-user-select: none;      /* Firefox */
+            -ms-user-select: none;       /* IE/Edge */
+        }
+
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+            background: rgba(255,255,255,0.95);
+            color: #222;
+            text-align: left;
+            padding: 16px 0;
+            padding-left: 15px;
+            font-size: 1em;
+            box-shadow: 0 -2px 12px #0002;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <h1>Open IDE</h1>
+    <img src="assets/icon.png" alt="Open IDE Icon" style="width: 100px; height: 100px;">
     <br><br><br><br><br><br><br>
-    <h4 id="loading">Loading</h4>
-    <script>
-        const loading_text = document.getElementById("loading");
-        let dots = 0;
-        setInterval(() => {
-            dots = (dots + 1) % 4;
-            loading_text.innerHTML = "Loading" + ".".repeat(dots);
-        }, 500);
-    </script>
+    <footer>
+        Open IDE &copy; 2025 &mdash; Loading...
+    </footer>
 </body>
 </html>
