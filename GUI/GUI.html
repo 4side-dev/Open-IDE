@@ -39,6 +39,12 @@
             font-family: Consolas, "Courier New", "Lucida Console", monospace;
             pointer-events: none;
             user-select: none;
+            overflow: hidden; /* Hide scrollbar */
+            scrollbar-width: none;      /* Firefox */
+            -ms-overflow-style: none;   /* IE 10+ */
+        }
+        #line-numbers::-webkit-scrollbar {
+            display: none;              /* Chrome/Safari/Webkit */
         }
         button {
             height: 25px;
@@ -155,7 +161,7 @@
             <br>
             <div class="editor-container">
                 <div id="line-numbers"></div>
-                <div id="Content_written" contenteditable="true" spellcheck="false">
+                <div id="Content_written" contenteditable="true" spellcheck="false" style="overflow-y: auto;">
                     #click on "New" to clear the query<br><br>
                     #Modify it how you like it!<br>
                     print("this is an open source IDE")
