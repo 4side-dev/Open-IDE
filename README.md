@@ -10,9 +10,6 @@
 Open IDE is a modern, open-source IDE made by  
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=SyntaxMORG0&message=Profile&color=lightgrey&logo=github)](https://github.com/syntaxMORG0)
 
-The current version (v0.1) is just the beginning—while it’s simple, it’s already surprisingly versatile!  
-Stay tuned for more features and improvements.
-
 ---
 
 ## ⚡ Requirements
