@@ -15,11 +15,11 @@ def switch_to_main():
 
 def main():
     window = webview.create_window(
-        'OPEN IDE', 'GUI/GUI.html', width=785, height=515,
+        'OPEN IDE', 'Editor/Editor.html', width=785, height=515,
         resizable=False, fullscreen=False, frameless=False, text_select=True, hidden=True
     )
     splash = webview.create_window(
-        'Open IDE', 'GUI/Launching.html', width=450, height=400,
+        'Open IDE', 'Editor/pages/Launching.html', width=450, height=400,
         resizable=False, fullscreen=False, frameless=True, text_select=True
     )
     print("made by syntaxMORG0 on GitHub")
