@@ -1,4 +1,4 @@
-<img src="GUI/assets/icon.png" alt="Open IDE Banner" width="120"/>
+<img src="Editor/assets/icon.png" alt="Open IDE Banner" width="120"/>
 
 # 🚀 Open IDE
 
