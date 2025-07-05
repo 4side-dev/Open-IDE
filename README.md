@@ -8,7 +8,7 @@
 ---
 
 Open IDE is a modern, open-source IDE made by  
-[![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=SyntaxMORG0&message=Profile&color=lightgrey&logo=github)](https://github.com/syntaxMORG0)
+[![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=SyntaxMORG0&message=Profile&color=lightgrey&logo=github)](https://github.com/syntaxMORG0) & 4side.dev
 
 ---
 
